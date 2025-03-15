@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, BookOpen, Share2, Sliders } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -49,6 +50,13 @@ export default function Home() {
                 href="/login"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 transition-colors"
               >
+                <Image
+                  src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-icon-png-transparent-background-osteopathy-16.png"
+                  alt="Google Logo"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 mr-2"
+                />
                 Entre com sua conta Google
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
