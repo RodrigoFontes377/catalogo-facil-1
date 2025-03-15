@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { ArrowRight, BookOpen, Share2, Sliders } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, BookOpen, Share2, Sliders } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -15,10 +15,16 @@ export default function Home() {
               <span className="ml-2 text-xl font-semibold">Catálogo Fácil</span>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <Link href="#beneficios" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#beneficios"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Benefícios
               </Link>
-              <Link href="#contato" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#contato"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Contato
               </Link>
             </nav>
@@ -34,15 +40,16 @@ export default function Home() {
               Seu Catálogo Online em Minutos
             </h1>
             <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto">
-              A maneira mais fácil de criar e gerenciar seu catálogo online. Compartilhe seus produtos
-              com clientes de forma profissional e eficiente.
+              A maneira mais fácil de criar e gerenciar seu catálogo online.
+              Compartilhe seus produtos com clientes de forma profissional e
+              eficiente.
             </p>
             <div className="mt-10">
               <Link
                 href="/login"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 transition-colors"
               >
-                Acessar Catálogo Fácil
+                Entre com sua conta Google
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
@@ -60,21 +67,21 @@ export default function Home() {
             {[
               {
                 icon: BookOpen,
-                title: 'Criação rápida de catálogos',
+                title: "Criação rápida de catálogos",
                 description:
-                  'Monte seu catálogo em poucos minutos com nossa interface intuitiva e fácil de usar.',
+                  "Monte seu catálogo em poucos minutos com nossa interface intuitiva e fácil de usar.",
               },
               {
                 icon: Sliders,
-                title: 'Gerenciamento simples',
+                title: "Gerenciamento simples",
                 description:
-                  'Atualize produtos, preços e informações com facilidade através do nosso painel administrativo.',
+                  "Atualize produtos, preços e informações com facilidade através do nosso painel administrativo.",
               },
               {
                 icon: Share2,
-                title: 'Compartilhamento facilitado',
+                title: "Compartilhamento facilitado",
                 description:
-                  'Compartilhe seu catálogo através de um link ou QR Code com seus clientes.',
+                  "Compartilhe seu catálogo através de um link ou QR Code com seus clientes.",
               },
             ].map((benefit, index) => (
               <div
@@ -99,13 +106,22 @@ export default function Home() {
               <span className="ml-2 text-sm font-semibold">Catálogo Fácil</span>
             </div>
             <div className="flex space-x-6">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Instagram
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 LinkedIn
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Twitter
               </Link>
             </div>
