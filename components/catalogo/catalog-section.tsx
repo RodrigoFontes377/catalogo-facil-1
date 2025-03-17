@@ -1,15 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Pencil, Trash2, Plus, ImagePlus, ArrowRight } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Pencil, Trash2, Plus, ImagePlus, ArrowRight } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 interface Catalog {
   id: string;
@@ -23,9 +28,9 @@ export function CatalogSection() {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [editingCatalogId, setEditingCatalogId] = useState<string | null>(null);
-  const [catalogName, setCatalogName] = useState('');
+  const [catalogName, setCatalogName] = useState("");
   const [catalogImage, setCatalogImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [previewUrl, setPreviewUrl] = useState<string>("");
   const { toast } = useToast();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +45,9 @@ export function CatalogSection() {
   const handleCreateCatalog = () => {
     if (!catalogName.trim()) {
       toast({
-        title: 'Erro',
-        description: 'Por favor, insira um nome para o catálogo.',
-        variant: 'destructive',
+        title: "Erro",
+        description: "Por favor, insira um nome para o catálogo.",
+        variant: "destructive",
       });
       return;
     }
@@ -55,20 +60,20 @@ export function CatalogSection() {
 
     setCatalogs([...catalogs, newCatalog]);
     setShowCreateDialog(false);
-    setCatalogName('');
+    setCatalogName("");
     setCatalogImage(null);
-    setPreviewUrl('');
+    setPreviewUrl("");
 
     toast({
-      title: 'Catálogo criado',
-      description: 'Seu catálogo foi criado com sucesso!',
+      title: "Catálogo criado",
+      description: "Seu catálogo foi criado com sucesso!",
     });
   };
 
   const handleEditCatalog = () => {
     if (!editingCatalogId) return;
-    
-    const updatedCatalogs = catalogs.map(catalog => {
+
+    const updatedCatalogs = catalogs.map((catalog) => {
       if (catalog.id === editingCatalogId) {
         return {
           ...catalog,
@@ -82,29 +87,29 @@ export function CatalogSection() {
     setCatalogs(updatedCatalogs);
     setShowEditDialog(false);
     setEditingCatalogId(null);
-    setCatalogName('');
+    setCatalogName("");
     setCatalogImage(null);
-    setPreviewUrl('');
+    setPreviewUrl("");
 
     toast({
-      title: 'Catálogo atualizado',
-      description: 'Seu catálogo foi atualizado com sucesso!',
+      title: "Catálogo atualizado",
+      description: "Seu catálogo foi atualizado com sucesso!",
     });
   };
 
   const handleDelete = (catalogId: string) => {
     try {
-      setCatalogs(catalogs.filter(catalog => catalog.id !== catalogId));
-      
+      setCatalogs(catalogs.filter((catalog) => catalog.id !== catalogId));
+
       toast({
-        title: 'Catálogo excluído',
-        description: 'Seu catálogo foi excluído com sucesso.',
+        title: "Catálogo excluído",
+        description: "Seu catálogo foi excluído com sucesso.",
       });
     } catch (error) {
       toast({
-        title: 'Erro',
-        description: 'Ocorreu um erro ao excluir o catálogo.',
-        variant: 'destructive',
+        title: "Erro",
+        description: "Ocorreu um erro ao excluir o catálogo.",
+        variant: "destructive",
       });
     }
   };
@@ -129,19 +134,24 @@ export function CatalogSection() {
       {catalogs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12">
           <p className="text-muted-foreground mb-8 text-center max-w-md">
-            Você ainda não tem nenhum catálogo. Crie seu primeiro catálogo para começar.
+            Você ainda não tem nenhum catálogo. Crie seu primeiro catálogo para
+            começar.
           </p>
-          <Button size="lg" className="gap-2" onClick={() => setShowCreateDialog(true)}>
+          <Button
+            size="lg"
+            className="gap-2"
+            onClick={() => setShowCreateDialog(true)}
+          >
             <Plus className="h-5 w-5" />
             Criar Catálogo
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6">
           {catalogs.map((catalog) => (
-            <Card key={catalog.id}>
-              <CardContent className="p-6">
-                <div className="flex items-start gap-6">
+            <Card key={catalog.id} className="w-full">
+              <CardContent className="p-2">
+                <div className="flex items-start gap-2">
                   <div className="relative w-40 h-40 rounded-lg overflow-hidden bg-muted flex-shrink-0">
                     {catalog.imageUrl ? (
                       <Image
@@ -176,7 +186,7 @@ export function CatalogSection() {
                         Excluir
                       </Button>
                       <Button
-                        className="gap-2 ml-auto"
+                        className="gap-2"
                         onClick={() => router.push(`/catalogo/${catalog.id}`)}
                       >
                         Entrar no Catálogo

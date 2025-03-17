@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { ArrowRight, BookOpen, Share2, Sliders } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { ArrowRight, BookOpen, Share2, Sliders } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
   const router = useRouter();
@@ -13,12 +13,12 @@ export default function Home() {
   const handleLogin = async () => {
     try {
       // Implement your own authentication logic here
-      router.push('/catalogo');
+      router.push("/catalogo");
     } catch (error) {
       toast({
-        title: 'Erro',
-        description: 'Ocorreu um erro ao tentar fazer login. Tente novamente.',
-        variant: 'destructive',
+        title: "Erro",
+        description: "Ocorreu um erro ao tentar fazer login. Tente novamente.",
+        variant: "destructive",
       });
     }
   };
@@ -34,10 +34,16 @@ export default function Home() {
               <span className="ml-2 text-xl font-semibold">Catálogo Fácil</span>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <Link href="#beneficios" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#beneficios"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Benefícios
               </Link>
-              <Link href="#contato" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#contato"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Contato
               </Link>
             </nav>
@@ -53,15 +59,12 @@ export default function Home() {
               Seu Catálogo Online em Minutos
             </h1>
             <p className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto">
-              A maneira mais fácil de criar e gerenciar seu catálogo online. Compartilhe seus produtos
-              com clientes de forma profissional e eficiente.
+              A maneira mais fácil de criar e gerenciar seu catálogo online.
+              Compartilhe seus produtos com clientes de forma profissional e
+              eficiente.
             </p>
             <div className="mt-10">
-              <Button
-                size="lg"
-                className="gap-2"
-                onClick={handleLogin}
-              >
+              <Button size="lg" className="gap-2" onClick={handleLogin}>
                 Acessar Catálogo Fácil
                 <ArrowRight className="h-5 w-5" />
               </Button>
@@ -80,21 +83,21 @@ export default function Home() {
             {[
               {
                 icon: BookOpen,
-                title: 'Criação rápida de catálogos',
+                title: "Criação rápida de catálogos",
                 description:
-                  'Monte seu catálogo em poucos minutos com nossa interface intuitiva e fácil de usar.',
+                  "Monte seu catálogo em poucos minutos com nossa interface intuitiva e fácil de usar.",
               },
               {
                 icon: Sliders,
-                title: 'Gerenciamento simples',
+                title: "Gerenciamento simples",
                 description:
-                  'Atualize produtos, preços e informações com facilidade através do nosso painel administrativo.',
+                  "Atualize produtos, preços e informações com facilidade através do nosso painel administrativo.",
               },
               {
                 icon: Share2,
-                title: 'Compartilhamento facilitado',
+                title: "Compartilhamento facilitado",
                 description:
-                  'Compartilhe seu catálogo através de um link ou QR Code com seus clientes.',
+                  "Compartilhe seu catálogo através de um link ou QR Code com seus clientes.",
               },
             ].map((benefit, index) => (
               <div
@@ -119,13 +122,22 @@ export default function Home() {
               <span className="ml-2 text-sm font-semibold">Catálogo Fácil</span>
             </div>
             <div className="flex space-x-6">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Instagram
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 LinkedIn
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link
+                href="#"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Twitter
               </Link>
             </div>

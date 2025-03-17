@@ -1,16 +1,21 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { BookOpen, Plus, ImagePlus, Pencil, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import Image from 'next/image';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { BookOpen, Plus, ImagePlus, Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 interface Product {
   id: string;
@@ -27,13 +32,13 @@ export default function CatalogProductsPage() {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
-  
+
   // Form states
-  const [productName, setProductName] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productPrice, setProductPrice] = useState('');
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productPrice, setProductPrice] = useState("");
   const [productImage, setProductImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [previewUrl, setPreviewUrl] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,20 +50,24 @@ export default function CatalogProductsPage() {
   };
 
   const resetForm = () => {
-    setProductName('');
-    setProductDescription('');
-    setProductPrice('');
+    setProductName("");
+    setProductDescription("");
+    setProductPrice("");
     setProductImage(null);
-    setPreviewUrl('');
+    setPreviewUrl("");
     setEditingProductId(null);
   };
 
   const handleAddProduct = () => {
-    if (!productName.trim() || !productDescription.trim() || !productPrice.trim()) {
+    if (
+      !productName.trim() ||
+      !productDescription.trim() ||
+      !productPrice.trim()
+    ) {
       toast({
-        title: 'Erro',
-        description: 'Por favor, preencha todos os campos obrigatórios.',
-        variant: 'destructive',
+        title: "Erro",
+        description: "Por favor, preencha todos os campos obrigatórios.",
+        variant: "destructive",
       });
       return;
     }
@@ -76,15 +85,15 @@ export default function CatalogProductsPage() {
     resetForm();
 
     toast({
-      title: 'Produto adicionado',
-      description: 'O produto foi adicionado com sucesso!',
+      title: "Produto adicionado",
+      description: "O produto foi adicionado com sucesso!",
     });
   };
 
   const handleEditProduct = () => {
     if (!editingProductId) return;
 
-    const updatedProducts = products.map(product => {
+    const updatedProducts = products.map((product) => {
       if (product.id === editingProductId) {
         return {
           ...product,
@@ -102,16 +111,16 @@ export default function CatalogProductsPage() {
     resetForm();
 
     toast({
-      title: 'Produto atualizado',
-      description: 'O produto foi atualizado com sucesso!',
+      title: "Produto atualizado",
+      description: "O produto foi atualizado com sucesso!",
     });
   };
 
   const handleDeleteProduct = (productId: string) => {
-    setProducts(products.filter(product => product.id !== productId));
+    setProducts(products.filter((product) => product.id !== productId));
     toast({
-      title: 'Produto excluído',
-      description: 'O produto foi excluído com sucesso.',
+      title: "Produto excluído",
+      description: "O produto foi excluído com sucesso.",
     });
   };
 
@@ -124,7 +133,13 @@ export default function CatalogProductsPage() {
     setShowEditDialog(true);
   };
 
-  const ProductForm = ({ onSubmit, submitText }: { onSubmit: () => void, submitText: string }) => (
+  const ProductForm = ({
+    onSubmit,
+    submitText,
+  }: {
+    onSubmit: () => void;
+    submitText: string;
+  }) => (
     <div className="space-y-4 py-4">
       <div className="space-y-2">
         <Label htmlFor="product-name">Nome do produto</Label>
@@ -208,17 +223,22 @@ export default function CatalogProductsPage() {
         {products.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12">
             <p className="text-muted-foreground mb-8 text-center max-w-md">
-              Você ainda não tem nenhum produto cadastrado. Adicione seu primeiro produto para começar.
+              Você ainda não tem nenhum produto cadastrado. Adicione seu
+              primeiro produto para começar.
             </p>
-            <Button size="lg" className="gap-2" onClick={() => setShowAddDialog(true)}>
+            <Button
+              size="lg"
+              className="gap-2"
+              onClick={() => setShowAddDialog(true)}
+            >
               <Plus className="h-5 w-5" />
               Adicionar Produto
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="space-y-12">
             {products.map((product) => (
-              <Card key={product.id}>
+              <Card key={product.id} className="w-full">
                 <div className="relative w-full h-48 bg-muted">
                   {product.imageUrl ? (
                     <Image
@@ -235,11 +255,13 @@ export default function CatalogProductsPage() {
                 </div>
                 <CardContent className="p-4">
                   <h4 className="font-semibold">{product.name}</h4>
-                  <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {product.description}
+                  </p>
                   <p className="text-lg font-semibold mt-2">
-                    {new Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL'
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
                     }).format(product.price)}
                   </p>
                   <div className="flex gap-2 mt-4">
@@ -274,7 +296,10 @@ export default function CatalogProductsPage() {
           <DialogHeader>
             <DialogTitle>Adicionar novo produto</DialogTitle>
           </DialogHeader>
-          <ProductForm onSubmit={handleAddProduct} submitText="Adicionar Produto" />
+          <ProductForm
+            onSubmit={handleAddProduct}
+            submitText="Adicionar Produto"
+          />
         </DialogContent>
       </Dialog>
 
@@ -283,7 +308,10 @@ export default function CatalogProductsPage() {
           <DialogHeader>
             <DialogTitle>Editar produto</DialogTitle>
           </DialogHeader>
-          <ProductForm onSubmit={handleEditProduct} submitText="Salvar Alterações" />
+          <ProductForm
+            onSubmit={handleEditProduct}
+            submitText="Salvar Alterações"
+          />
         </DialogContent>
       </Dialog>
     </div>
