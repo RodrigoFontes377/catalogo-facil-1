@@ -1,31 +1,58 @@
-"use client";
+'use client'
 
 import { ArrowRight, BookOpen, Share2, Sliders } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/hooks/use-toast'
+import { useState } from 'react'
+import { useAuth } from '@/context/auth-context'
 
 export default function Home() {
-  const router = useRouter();
-  const { toast } = useToast();
+  const router = useRouter()
+  const { toast } = useToast()
+  const { setUser, setAccessToken } = useAuth()
 
-  const handleLogin = async () => {
-    try {
-      // Implement your own authentication logic here
-      router.push("/catalogo");
-    } catch (error) {
-      toast({
-        title: "Erro",
-        description: "Ocorreu um erro ao tentar fazer login. Tente novamente.",
-        variant: "destructive",
-      });
-    }
-  };
+  const handleLogin = () => {
+    // @ts-ignore
+    window.google.accounts.oauth2.initCodeClient({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      scope: 'openid profile email',
+      ux_mode: 'popup',
+      callback: async (response: { code: string }) => {
+        try {
+          const res = await fetch('http://localhost:8080/oauth/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: response.code }),
+          })
+
+          const data = await res.json()
+
+          if (res.ok) {
+            // Verifique e extraia os dados de resposta do backend (nome, email, accessToken)
+            setUser({
+              name: data.name, // Nome do usuário
+              email: data.email, // Email do usuário
+            })
+            setAccessToken(data.accessToken) // Salva o token de acesso
+            router.push('/home') // Redireciona para a página principal após o login
+          } else {
+            throw new Error(data.error || 'Erro ao autenticar')
+          }
+        } catch (error) {
+          toast({
+            title: 'Erro',
+            description: 'Ocorreu um erro ao tentar fazer login com o Google.',
+            variant: 'destructive',
+          })
+        }
+      },
+    }).requestCode()
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
       <header className="border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -51,7 +78,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="flex-grow bg-gradient-to-b from-background to-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
@@ -65,7 +91,7 @@ export default function Home() {
             </p>
             <div className="mt-10">
               <Button size="lg" className="gap-2" onClick={handleLogin}>
-                Acessar Catálogo Fácil
+                Acessar com Google
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
@@ -148,5 +174,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
